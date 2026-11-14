@@ -6,12 +6,13 @@ app = Flask(__name__)
 def check_audio():
     data = request.json
     amplitude = data.get('amplitude', 0)
-
-    # Облачный фильтр: егер дыбыс 350-ден төмен болса - мусор
-    if amplitude < 350:
+    
+    # Порог күшейтілді (1500): енді сервер ұсақ шулар мен бөлме дыбыстарын топырлатып елемейді.
+    # Тек телефон динамигі сияқты қатты дыбыс қана өткізіледі.
+    if amplitude < 1500:
         return jsonify({"alert": False})
-
-    print(f"Күмәнді дыбыс тіркелді! Амплитуда: {amplitude}")
+    
+    print(f"НАСТОЯЩИЙ МОШЕННИК! Амплитуда: {amplitude}")
     return jsonify({"alert": True})
 
 if __name__ == '__main__':
